@@ -1,0 +1,20 @@
+relationship 2b49a4ab-737c-722f-4c71-d94d9f71c23d
+	fromColumn: category_leaders_snapshot.player
+	toColumn: 'Player Profile'.'Player Name'
+
+relationship b6fd6582-703f-9fe0-8ef2-c2c02d89d177
+	fromColumn: category_performers_snapshot.Player
+	toColumn: 'Player Profile'.'Player Name'
+
+relationship 3f432373-6754-61d1-cb73-52a7e2716b42
+	fromColumn: category_leaders_snapshot.team
+	toColumn: DimTeam.Team
+
+relationship 62d73dfd-b7c5-aa73-dbe0-ede05beed2c6
+	fromColumn: category_performers_snapshot.Team
+	toColumn: DimTeam.Team
+
+relationship ff78b470-3391-b045-b319-0a91136e90bb
+	fromColumn: 'Team Standings'.Team
+	toColumn: DimTeam.Team
+

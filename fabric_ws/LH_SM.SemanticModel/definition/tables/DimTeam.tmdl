@@ -1,0 +1,29 @@
+table DimTeam
+	lineageTag: 06560c4f-ee39-4c59-8edd-a55af48b46e6
+	sourceLineageTag: [dbo].[DimTeam]
+
+	column Team
+		dataType: string
+		lineageTag: e76619a6-e8a7-4760-b8df-f5cbc4e437bb
+		sourceLineageTag: Team
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column Logo
+		dataType: string
+		lineageTag: 9c0edfb5-abf1-4b93-b8e1-2ccc8bd694a9
+		sourceLineageTag: Logo
+		summarizeBy: none
+		sourceColumn: Logo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTeam = entity
+		mode: directLake
+		source
+			entityName: DimTeam
+			schemaName: dbo
+			expressionSource: 'DirectLake - BAL_Lakehouse'
+

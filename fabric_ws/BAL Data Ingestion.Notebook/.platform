@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "BAL Data Ingestion"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "95b2a1d6-8ec9-87ce-4532-554af6746448"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Profits & Loss"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "21cefa6b-8d2f-aa65-4e1b-27908167cfe2"
+  }
+}

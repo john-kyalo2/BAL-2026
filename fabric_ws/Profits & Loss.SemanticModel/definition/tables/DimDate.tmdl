@@ -1,0 +1,74 @@
+table DimDate
+	lineageTag: eee02496-03c1-45aa-8a14-9670467456fa
+
+	column Date
+		formatString: d mmm yyyy
+		lineageTag: f208d7a3-af1e-4bc8-a4cf-6d2dd7c50bc6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Year
+		formatString: 0
+		lineageTag: 89259be3-ffc2-4b14-a59e-2354e9c0786c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No'
+		formatString: 0
+		lineageTag: b4da1830-c3ad-49c5-8c4d-122401b04c15
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month No]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: e04d732e-6fa6-4864-ba32-e334ac989560
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+		sortByColumn: 'Month No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: ab0fdc4c-5247-448d-a6e0-c2a102ff1319
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		lineageTag: ddfd0780-d617-4e31-8734-5a41e876ec4f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(DATE(2023,1,1), DATE(2024,12,31)),
+				    "Year", YEAR([Date]),
+				    "Month No", MONTH([Date]),
+				    "Month", FORMAT([Date], "mmm"),
+				    "Quarter", "Q" & FORMAT([Date], "Q"),
+				    "Year-Month", FORMAT([Date], "YYYY-MM")
+				)
+
+	annotation PBI_Id = cc82b740ff1e4645875af1c724597133
+

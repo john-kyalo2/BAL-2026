@@ -1,0 +1,144 @@
+table GL_Transactions
+	lineageTag: eb26f2f2-f4d5-4fd4-b384-4dbce7571e0e
+
+	column Value
+		formatString: 0
+		lineageTag: 481022cc-397b-443c-b598-b30d5256cecf
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionID
+		formatString: 0
+		lineageTag: 3b34c5df-969b-4d2f-9f8a-10a73d3f33c0
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [TransactionID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		formatString: d mmm yyyy
+		lineageTag: 1e08e5ad-fa61-4b0c-a198-b888b7734253
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column AccountNumber
+		formatString: 0
+		lineageTag: ef7376ed-3d8b-4cc7-aa88-7804c58490c7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [AccountNumber]
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseAmount
+		formatString: 0
+		lineageTag: d3a6163f-7e2d-426e-b153-bb95be587e5f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [BaseAmount]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Amount
+		formatString: 0
+		lineageTag: 0e5c5954-6310-4e5d-b3cc-bef454331044
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Amount]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		lineageTag: 59bf49d4-40a7-4d6a-a25e-e202c1de5379
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Description]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PL_LineID = ```
+			
+			VAR AcctNum = GL_Transactions[AccountNumber] //Store transactions acc number
+			RETURN
+			CALCULATE(
+			    MIN(PL_Structure[PL_LineID]), //Find the PL_LineID that matches
+			    FILTER(
+			        PL_Structure,
+			        AcctNum >= PL_Structure[GL_AccountStart] &&
+			        AcctNum <= PL_Structure[GL_AccountEnd] &&  // Does this transaction's account fall in the range?
+			        PL_Structure[IsSubtotal] = "No" // Only match to DETAIL lines, not subtotals
+			    ) 
+			)
+			```
+		formatString: 0
+		lineageTag: 3f91d323-d357-4baf-a26f-3f2f2a5809bd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GL_Transactions = calculated
+		mode: import
+		source = ```
+				
+				VAR BaseData = 
+				ADDCOLUMNS(
+				    GENERATESERIES(1, 500),
+				    "TransactionID", [Value],
+				    "Date", DATE(2023, 1, 1) + RANDBETWEEN(0, 730),
+				    "AccountNumber", 
+				        SWITCH(
+				            TRUE(),
+				            [Value] <= 150, RANDBETWEEN(4100, 4199), // Product Sales
+				            [Value] <= 250, RANDBETWEEN(4200, 4299), // Service Revenue
+				            [Value] <= 270, RANDBETWEEN(4300, 4399), // Other Income
+				            [Value] <= 350, RANDBETWEEN(5100, 5199), // Product Costs
+				            [Value] <= 390, RANDBETWEEN(5200, 5299), // Service Costs
+				            [Value] <= 430, RANDBETWEEN(6100, 6199), // Salaries
+				            [Value] <= 455, RANDBETWEEN(6200, 6299), // Rent & Utilities
+				            [Value] <= 475, RANDBETWEEN(6300, 6399), // Marketing
+				            [Value] <= 490, RANDBETWEEN(6400, 6499), // Administrative
+				            [Value] <= 495, RANDBETWEEN(7100, 7199), // Interest
+				            RANDBETWEEN(7200, 7299) // Tax
+				        ),
+				    "BaseAmount", RANDBETWEEN(100, 50000)
+				)
+				RETURN
+				ADDCOLUMNS(
+				    BaseData,
+				    "Amount", 
+				        SWITCH(
+				            TRUE(),
+				            [AccountNumber] >= 4000 && [AccountNumber] < 5000, [BaseAmount], // Revenue (positive)
+				            -[BaseAmount] // Expenses (negative)
+				        ),
+				    "Description", 
+				        SWITCH(
+				            TRUE(),
+				            [AccountNumber] >= 4100 && [AccountNumber] < 4200, "Product Sale",
+				            [AccountNumber] >= 4200 && [AccountNumber] < 4300, "Service Rendered",
+				            [AccountNumber] >= 4300 && [AccountNumber] < 4400, "Other Income",
+				            [AccountNumber] >= 5100 && [AccountNumber] < 5200, "Product Cost",
+				            [AccountNumber] >= 5200 && [AccountNumber] < 5300, "Service Cost",
+				            [AccountNumber] >= 6100 && [AccountNumber] < 6200, "Salary Payment",
+				            [AccountNumber] >= 6200 && [AccountNumber] < 6300, "Rent/Utilities",
+				            [AccountNumber] >= 6300 && [AccountNumber] < 6400, "Marketing Expense",
+				            [AccountNumber] >= 6400 && [AccountNumber] < 6500, "Admin Expense",
+				            [AccountNumber] >= 7100 && [AccountNumber] < 7200, "Interest Payment",
+				            "Tax Payment"
+				        )
+				)
+				```
+
+	annotation PBI_Id = c312146287d94fd9b8faa015d5df99b1
+

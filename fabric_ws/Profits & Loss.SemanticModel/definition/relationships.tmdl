@@ -1,0 +1,8 @@
+relationship bf815952-50ad-898f-1fce-71e1e0fc7f11
+	fromColumn: GL_Transactions.Date
+	toColumn: DimDate.Date
+
+relationship 93b9710c-9665-ce6e-014d-9aecede7382f
+	fromColumn: GL_Transactions.PL_LineID
+	toColumn: PL_Structure.PL_LineID
+

@@ -1,0 +1,11 @@
+expression 'DirectLake - BAL_Lakehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/d3924b68-b19f-47cd-a229-e0de011cfbb5/149b9454-87ac-45e9-bbc2-25b5bf3a7680", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 19e09f8d-b45f-4adf-97c6-b018674315ce
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[BAL_PlayerProfile csv]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[silver_bal_standings_snapshot]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[DimTeam xlsx]"}},"objectType":"Table"}]
+

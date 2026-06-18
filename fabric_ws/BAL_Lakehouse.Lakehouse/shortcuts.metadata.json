@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Team Standings",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/dbo/Team Standings",
+        "itemId": "c59a2733-8339-a244-4627-cb7885fbe505",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Warehouse"
+      }
+    }
+  },
+  {
+    "name": "Player Profile",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/dbo/Player Profile",
+        "itemId": "c59a2733-8339-a244-4627-cb7885fbe505",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Warehouse"
+      }
+    }
+  },
+  {
+    "name": "DimTeam",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/dbo/DimTeam",
+        "itemId": "c59a2733-8339-a244-4627-cb7885fbe505",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Warehouse"
+      }
+    }
+  }
+]

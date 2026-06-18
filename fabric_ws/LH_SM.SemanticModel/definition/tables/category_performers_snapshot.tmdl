@@ -1,0 +1,72 @@
+table category_performers_snapshot
+	lineageTag: 949742b4-31c4-4da3-9c06-5595d4d8cda7
+	sourceLineageTag: [dbo].[category_performers_snapshot]
+
+	column Player
+		dataType: string
+		lineageTag: 3a15b247-85e5-49f6-8873-cc1c2db273bd
+		sourceLineageTag: Player
+		summarizeBy: none
+		sourceColumn: Player
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: d9ca21fc-6a92-41e3-85f0-35ea3d482ba5
+		sourceLineageTag: Team
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column season_year
+		dataType: int64
+		formatString: 0
+		lineageTag: b9fd49d7-ab92-4782-921e-13ee9569eea6
+		sourceLineageTag: season_year
+		summarizeBy: none
+		sourceColumn: season_year
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column snapshot_utc
+		dataType: string
+		lineageTag: b7f762d9-a065-4d27-b8f7-f4525070fd9e
+		sourceLineageTag: snapshot_utc
+		summarizeBy: none
+		sourceColumn: snapshot_utc
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: c2b08021-79e7-4981-9132-9e6c9a2a96a9
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column score
+		dataType: double
+		lineageTag: f32a8fd9-d7f9-42da-a66a-9080f8a46fad
+		sourceLineageTag: score
+		summarizeBy: none
+		sourceColumn: score
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition category_performers_snapshot = entity
+		mode: directLake
+		source
+			entityName: category_performers_snapshot
+			schemaName: dbo
+			expressionSource: 'DirectLake - BAL_Lakehouse'
+

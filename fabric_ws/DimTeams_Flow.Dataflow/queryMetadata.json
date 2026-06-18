@@ -1,0 +1,69 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DimTeams_Flow",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "53bb5950-6eb2-4e6d-be1b-f2e8cc0bffc8",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "DimTeam xlsx": {
+      "queryId": "857a249f-f91c-4671-8ce7-82b90714601f",
+      "queryName": "DimTeam xlsx"
+    },
+    "Team_cleam_mapping": {
+      "queryId": "69c075cd-63fb-44df-82a0-4902090da71f",
+      "queryName": "Team_cleam_mapping",
+      "loadEnabled": false
+    },
+    "silver_bal_standings_snapshot": {
+      "queryId": "36903c72-2e58-41f8-bdda-e29d472529f6",
+      "queryName": "silver_bal_standings_snapshot"
+    },
+    "extra team": {
+      "queryId": "facb974a-dccb-477e-b0b9-22d4314b43b4",
+      "queryName": "extra team",
+      "loadEnabled": false
+    },
+    "BAL_PlayerProfile csv": {
+      "queryId": "358004f6-3e21-4abe-816f-a1ce8acc3617",
+      "queryName": "BAL_PlayerProfile csv"
+    },
+    "silver_bal_standings_snapshot_DataDestination": {
+      "queryId": "af047d1a-3c63-4b64-b60d-82f42ac0a43e",
+      "queryName": "silver_bal_standings_snapshot_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "DimTeam xlsx_DataDestination": {
+      "queryId": "b66b3cea-6f34-4d9b-a27b-9fccb591f1c0",
+      "queryName": "DimTeam xlsx_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "BAL_PlayerProfile csv_DataDestination": {
+      "queryId": "fa8277d7-4c3d-43a0-b886-7217366b5748",
+      "queryName": "BAL_PlayerProfile csv_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"bb715997-bfa0-418a-a87c-c16a028df95a\",\"DatasourceId\":\"d5a265fd-3fcc-4956-971e-0469f67f1b68\"}"
+    },
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"bb715997-bfa0-418a-a87c-c16a028df95a\",\"DatasourceId\":\"efb95d30-f6a8-4947-a1e2-687b655b209f\"}"
+    }
+  ]
+}

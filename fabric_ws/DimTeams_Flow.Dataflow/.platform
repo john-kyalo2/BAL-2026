@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "DimTeams_Flow"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "10d10a7d-857c-8b5e-4b63-ad7e8279da33"
+  }
+}

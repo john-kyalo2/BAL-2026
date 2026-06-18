@@ -1,0 +1,92 @@
+table 'Player Profile'
+	lineageTag: ed91f66a-d075-4f0a-a44c-dd4980d5f62a
+	sourceLineageTag: [dbo].[Player Profile]
+
+	column 'Player Name'
+		dataType: string
+		lineageTag: 4ca513b4-c6d7-48e0-8646-e46f7315e3ab
+		sourceLineageTag: Player Name
+		summarizeBy: none
+		sourceColumn: Player Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 389301f3-117c-4586-b747-2b749673e2fa
+		sourceLineageTag: Age
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Position
+		dataType: string
+		lineageTag: b65a503f-fb31-4afa-8d07-af60c69544fd
+		sourceLineageTag: Position
+		summarizeBy: none
+		sourceColumn: Position
+
+		annotation SummarizationSetBy = Automatic
+
+	column Height
+		dataType: string
+		lineageTag: 9d23a93a-5a96-48c7-b99d-4ecfbcb87b80
+		sourceLineageTag: Height
+		summarizeBy: none
+		sourceColumn: Height
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nationality
+		dataType: string
+		lineageTag: 1277e64d-7f60-4c4a-90ce-82f98b1621f9
+		sourceLineageTag: Nationality
+		summarizeBy: none
+		sourceColumn: Nationality
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jersey No_'
+		dataType: string
+		lineageTag: fdd82edf-37e3-48d8-be45-bdc654d3f04b
+		sourceLineageTag: Jersey No_
+		summarizeBy: none
+		sourceColumn: Jersey No_
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: 0181b750-0a67-4ac2-ba89-18d0466bae96
+		sourceLineageTag: Team
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'P.Image'
+		dataType: string
+		lineageTag: 586cb1f8-ffab-466a-baf7-2e31c0cfcc17
+		sourceLineageTag: P.Image
+		summarizeBy: none
+		sourceColumn: P.Image
+
+		annotation SummarizationSetBy = Automatic
+
+	column DOB
+		dataType: string
+		lineageTag: bd49c146-b737-455a-a360-ba4667738389
+		sourceLineageTag: DOB
+		summarizeBy: none
+		sourceColumn: DOB
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Player Profile' = entity
+		mode: directLake
+		source
+			entityName: Player Profile
+			schemaName: dbo
+			expressionSource: 'DirectLake - BAL_Lakehouse'
+

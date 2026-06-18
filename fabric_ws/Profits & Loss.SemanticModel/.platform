@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Profits & Loss"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "674765e9-a6a0-b3a3-423b-42e578492a81"
+  }
+}

@@ -1,0 +1,147 @@
+table 'Team Standings'
+	lineageTag: b4f96cd3-65ec-4034-861c-6bbff2d7044f
+	sourceLineageTag: [dbo].[Team Standings]
+
+	measure 'Games Played' = SUM('Team Standings'[GP])
+		formatString: 0
+		displayFolder: Standings Metrics
+		lineageTag: dbc2cf08-b378-48f1-a558-f4a65ca09318
+
+	measure 'Games Won' = SUM('Team Standings'[W])
+		formatString: 0
+		displayFolder: Standings Metrics
+		lineageTag: a5a55c11-cb39-4e19-bd7c-c0c319e4aaee
+
+	measure 'Games Lost' = SUM('Team Standings'[L])
+		formatString: 0
+		displayFolder: Standings Metrics
+		lineageTag: ae88376a-3253-42f6-a792-0c7ba3dc184e
+
+	measure '% Win' = DIVIDE(SUM('Team Standings'[W]), SUM('Team Standings'[GP]))
+		formatString: 0%
+		displayFolder: Standings Metrics
+		lineageTag: 763d37ae-863f-4a04-ad88-fa480ee19527
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Point Differential' = SUM('Team Standings'[GD])
+		formatString: +0;-0;0
+		displayFolder: Standings Metrics
+		lineageTag: a57e3cfd-6e13-4fcb-b03a-fd4ac4746d55
+
+	measure Points = SUM('Team Standings'[Pts])
+		formatString: 0
+		displayFolder: Standings Metrics
+		lineageTag: 51a22eb6-f4c8-4670-8f4c-dfb449f2fd56
+
+	measure 'League Position' = MIN('Team Standings'[Position])
+		formatString: 0
+		displayFolder: Standings Metrics
+		lineageTag: 56ea1372-7458-4929-9fa4-199e46ee3269
+
+	column Position
+		dataType: int64
+		formatString: 0
+		lineageTag: ecee4ad5-4068-4afb-823f-0f93fe036193
+		sourceLineageTag: Position
+		summarizeBy: sum
+		sourceColumn: Position
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: 5c8e1eb8-61ab-4ae2-a54c-999e06a664ad
+		sourceLineageTag: Team
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column GP
+		dataType: int64
+		formatString: 0
+		lineageTag: c613e4e7-1c41-4a18-a297-520723c00b88
+		sourceLineageTag: GP
+		summarizeBy: sum
+		sourceColumn: GP
+
+		annotation SummarizationSetBy = Automatic
+
+	column W
+		dataType: int64
+		formatString: 0
+		lineageTag: 675def6f-1ff9-4de1-89c4-c64220fca028
+		sourceLineageTag: W
+		summarizeBy: sum
+		sourceColumn: W
+
+		annotation SummarizationSetBy = Automatic
+
+	column L
+		dataType: int64
+		formatString: 0
+		lineageTag: d76f7a48-26be-46ef-a99c-54db81a617a9
+		sourceLineageTag: L
+		summarizeBy: sum
+		sourceColumn: L
+
+		annotation SummarizationSetBy = Automatic
+
+	column GD
+		dataType: int64
+		formatString: 0
+		lineageTag: 221b2c73-4cfc-401f-8ed1-6634d12dce86
+		sourceLineageTag: GD
+		summarizeBy: sum
+		sourceColumn: GD
+
+		annotation SummarizationSetBy = Automatic
+
+	column %won
+		dataType: int64
+		formatString: 0
+		lineageTag: df39b471-19d3-42f9-a6f9-eceed9c7c233
+		sourceLineageTag: %won
+		summarizeBy: sum
+		sourceColumn: %won
+
+		annotation SummarizationSetBy = Automatic
+
+	column conference
+		dataType: string
+		lineageTag: 0770e88d-9325-4ee6-a9fd-11155bf5d020
+		sourceLineageTag: conference
+		summarizeBy: none
+		sourceColumn: conference
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshot_utc
+		dataType: string
+		lineageTag: 9b2284aa-fac5-4603-8807-b0ab0c9b66d2
+		sourceLineageTag: snapshot_utc
+		summarizeBy: none
+		sourceColumn: snapshot_utc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pts
+		dataType: int64
+		formatString: 0
+		lineageTag: c7381b20-de63-4125-9139-e7dc56fbd534
+		sourceLineageTag: Pts
+		summarizeBy: sum
+		sourceColumn: Pts
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Team Standings' = entity
+		mode: directLake
+		source
+			entityName: Team Standings
+			schemaName: dbo
+			expressionSource: 'DirectLake - BAL_Lakehouse'
+

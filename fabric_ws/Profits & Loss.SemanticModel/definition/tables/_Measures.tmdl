@@ -1,0 +1,99 @@
+table _Measures
+	lineageTag: 31012ca1-3f73-4bb6-91f0-beab5d20a2ee
+
+	measure GL_Amount = SUM(GL_Transactions[Amount])
+		formatString: #,0
+		lineageTag: 1f59f59c-8503-41c9-832b-4f36340dbfbe
+
+	measure PL_Value = ```
+			
+			VAR CurrentLine = SELECTEDVALUE(PL_Structure[PL_LineItem])
+			VAR IsSubtotalLine = SELECTEDVALUE(PL_Structure[IsSubtotal])
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    
+			    // Gross Profit Calculation
+			    CurrentLine = "Gross Profit",
+			    CALCULATE(
+			        [GL_Amount],
+			        FILTER(
+			            ALL(PL_Structure),
+			            PL_Structure[PL_Category] IN {"Revenue", "COGS"}
+			        )
+			    ),
+			    
+			    // Operating Profit Calculation
+			    CurrentLine = "Operating Profit (EBIT)",
+			    CALCULATE(
+			        [GL_Amount],
+			        FILTER(
+			            ALL(PL_Structure),
+			            PL_Structure[PL_Category] IN {"Revenue", "COGS", "Operating Expenses"}
+			        )
+			    ),
+			    
+			    // Net Profit Calculation
+			    CurrentLine = "Net Profit",
+			    CALCULATE(
+			        [GL_Amount],
+			        FILTER(
+			            ALL(PL_Structure),
+			            PL_Structure[IsSubtotal] <> "Calc"
+			        )
+			    ),
+			    
+			    // Regular Detail Lines
+			    [GL_Amount]
+			)
+			```
+		formatString: #,0
+		lineageTag: 68b31d8c-6075-4baf-a948-3aa0efe274f5
+
+	measure PL_PY_Variance = ```
+			
+			VAR CurrentYear = [PL_Value]
+			VAR PriorYear = 
+			    CALCULATE(
+			        [PL_Value],
+			        DATEADD(DimDate[Date], -1, YEAR)
+			    )
+			RETURN
+			CurrentYear - PriorYear
+			```
+		formatString: 0
+		lineageTag: a5c4a4a9-bf82-4b89-80e7-81763e730782
+
+	measure PL_Percent_of_Revenue = ```
+			
+			VAR TotalRevenue = 
+			    CALCULATE(
+			        [GL_Amount],
+			        FILTER(
+			            ALL(PL_Structure),
+			            PL_Structure[PL_LineItem] IN {"Other Income", "Product Sales", "Service Revenue"}
+			        )
+			    )
+			RETURN
+			DIVIDE([PL_Value], TotalRevenue, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 09882f80-4f66-4fd1-b454-ee005b1ac7e6
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: e61e323d-6680-4924-9a75-c9fc04bd9baf
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_Id = 3dd2698c08be4aebbf0a50f11d317087
+

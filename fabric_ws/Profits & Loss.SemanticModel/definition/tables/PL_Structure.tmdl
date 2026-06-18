@@ -1,0 +1,117 @@
+table PL_Structure
+	lineageTag: f21712f6-02e0-45cc-a98d-86686e3fea44
+
+	column PL_LineID
+		formatString: 0
+		lineageTag: 43df0746-1d30-47b7-8133-36eab960840b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PL_LineID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PL_Category
+		lineageTag: 6293739c-9c51-4c99-a900-f36d67413b26
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PL_Category]
+		sortByColumn: PL_SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column PL_LineItem
+		lineageTag: f423f20b-db48-4974-8f3e-d3a2898ef8c9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PL_LineItem]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PL_Level
+		formatString: 0
+		lineageTag: f1dd3c7f-a129-4769-9a22-20ced130453c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PL_Level]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PL_SortOrder
+		formatString: 0
+		lineageTag: fe8a7885-2d52-4104-a799-9fd5804290e1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PL_SortOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsSubtotal
+		lineageTag: 18157040-024b-4adf-bef6-9cab16674423
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsSubtotal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column GL_AccountStart
+		formatString: 0
+		lineageTag: f4bd9e2a-113e-4c05-a4ce-0ad5025607a6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [GL_AccountStart]
+
+		annotation SummarizationSetBy = Automatic
+
+	column GL_AccountEnd
+		formatString: 0
+		lineageTag: 6001a1db-0ac4-46c5-9367-d90082a510b4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [GL_AccountEnd]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PL_Structure = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "PL_LineID", INTEGER,
+				    "PL_Category", STRING,
+				    "PL_LineItem", STRING,
+				    "PL_Level", INTEGER,
+				    "PL_SortOrder", INTEGER,
+				    "IsSubtotal", STRING,
+				    "GL_AccountStart", INTEGER,
+				    "GL_AccountEnd", INTEGER,
+				    {
+				        {1, "Revenue", "Total Revenue", 1, 1, "Yes", 4000, 4999},
+				        {2, "Revenue", "Product Sales", 2, 1, "No", 4100, 4199},
+				        {3, "Revenue", "Service Revenue", 2, 1, "No", 4200, 4299},
+				        {4, "Revenue", "Other Income", 2, 1, "No", 4300, 4399},
+				        
+				        {5, "COGS", "Total Cost of Sales", 1, 2, "Yes", 5000, 5999},
+				        {6, "COGS", "Product Costs", 2, 2, "No", 5100, 5199},
+				        {7, "COGS", "Service Costs", 2, 2, "No", 5200, 5299},
+				        
+				        {8, "Gross Profit", "Gross Profit", 1, 3, "Calc", 0, 0},
+				        
+				        {9, "Operating Expenses", "Total Operating Expenses", 1, 4, "Yes", 6000, 6999},
+				        {10, "Operating Expenses", "Salaries & Wages", 2, 4, "No", 6100, 6199},
+				        {11, "Operating Expenses", "Rent & Utilities", 2, 4, "No", 6200, 6299},
+				        {12, "Operating Expenses", "Marketing", 2, 4, "No", 6300, 6399},
+				        {13, "Operating Expenses", "Administrative", 2, 4, "No", 6400, 6499},
+				        
+				        {14, "Operating Profit", "Operating Profit (EBIT)", 1, 5, "Calc", 0, 0},
+				        
+				        {15, "Other Items", "Interest & Tax", 1, 6, "Yes", 7000, 7999},
+				        {16, "Other Items", "Interest Expense", 2, 6, "No", 7100, 7199},
+				        {17, "Other Items", "Tax Expense", 2, 6, "No", 7200, 7299},
+				        
+				        {18, "Net Profit", "Net Profit", 1, 7, "Calc", 0, 0}
+				    }
+				)
+				```
+
+	annotation PBI_Id = a84f057a1d844aa1a6cec7db37ef3d3b
+
